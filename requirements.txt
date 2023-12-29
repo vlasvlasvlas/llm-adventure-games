@@ -1,0 +1,10 @@
+# /c/Python311/python -m venv venv
+# source venv/Scripts/activate
+# pip install -r requirements.txt
+# python -m pip install --upgrade pip
+gradio==3.38.0
+openai==0.27.0
+langchain
+
+# pip install --no-cache-dir --verbose gradio==3.38.0
+# pip install --no-cache-dir --verbose openai==0.27.0
