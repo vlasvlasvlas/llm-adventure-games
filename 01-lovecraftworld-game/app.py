@@ -64,31 +64,53 @@ demo.launch()
 import numpy as np
 import gradio as gr
 
-
 def flip_text(x):
+    print("x:", x)
     return x[::-1]
 
 
 def flip_image(x):
+    print("x:", x)
     return np.fliplr(x)
 
-
 with gr.Blocks() as demo:
+
+    # markdown available
     gr.Markdown("Flip text or image files using this demo.")
+
+    # elements in tab 1
     with gr.Tab("Flip Text"):
         text_input = gr.Textbox()
         text_output = gr.Textbox()
-        text_button = gr.Button("Flip")
+
+        # button in tab
+        text_button = gr.Button("Flip text")
+
+    # elements in tab 2
     with gr.Tab("Flip Image"):
         with gr.Row():
             image_input = gr.Image()
             image_output = gr.Image()
-        image_button = gr.Button("Flip")
 
+        # button in tab
+        image_button = gr.Button("Flip image")
+
+    # acordeon available
     with gr.Accordion(label="Open for More!",open=False):
         gr.Markdown("### Look at me...")
 
-    text_button.click(flip_text, inputs=text_input, outputs=text_output)
-    image_button.click(flip_image, inputs=image_input, outputs=image_output)
+
+    # action buttons on click
+    text_button.click(
+        flip_text, 
+        inputs=text_input, 
+        outputs=text_output
+        )
+    
+    image_button.click(
+        flip_image, 
+        inputs=image_input, 
+        outputs=image_output
+        )
 
 demo.launch()
