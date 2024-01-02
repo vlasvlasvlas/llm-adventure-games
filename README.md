@@ -1,5 +1,4 @@
 # llm-adventure-games
 
-LLm ideas for adventure games
-
+LLM ideas for adventure games
 
