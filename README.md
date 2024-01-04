@@ -14,6 +14,13 @@ Si bien se está sumando un servidor para jugar directamente online, por el mome
 
 - Dependencias en el requirements.txt (openai, langchain, gradio, python-dotenv)
 
+
+## To-Do's:
+
+- [] Pruebas con diferentes modelos aparte de OpenAI haciendolo agnostico frente al tipo de modelo, priorizando modelos abiertos
+
+- [] pruebas con openllm deploy para publicar sobre nubes que soporten modelos abiertos
+
 # Juegos 
 
 ## Lovecraft LLM: Sombras Insondables.
