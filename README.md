@@ -3,7 +3,7 @@ Maquetas e ideas para juegos de aventuras utilizando modelos LLM
 
 ## Lovecraft LLM: Sombras Insondables.
 
-![Alt text](image-1.png)
+![Alt text](image-2.png)
 
 Aventura de texto oscura y surrealista, utilizando un modelo LLM de texto generativo, basado en la obra y universo de HP Lovecraft.
 
