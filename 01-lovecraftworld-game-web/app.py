@@ -87,6 +87,7 @@ with gr.Blocks(
         """
                 # Sombras Insondables - Lovecraft LLM
                 ## Aventura de texto oscura y surrealista, utilizando un modelo LLM de texto generativo, basado en la obra y universo de HP Lovecraft.
+                :musical_note: :headphones: Te recomenadmos abrir el siguiente [link de audio](https://www.youtube.com/watch?v=uSqbCnuHI6w&list=PL9u0s1I4XkR1TwWKZe9r3fd4WE8EYeAW9&index=10&target=_blank) para escuchar mientras juegas! 
                 """
     )
 
