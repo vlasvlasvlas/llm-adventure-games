@@ -1,6 +1,8 @@
 # llm-adventure-games
 Maquetas e ideas para juegos de aventuras utilizando modelos LLM
 
+- Utiliza Python 3.10+, langchain, gradio y modelos de OpenAI.
+
 ## Lovecraft LLM: Sombras Insondables.
 
 ![Alt text](image-2.png)
