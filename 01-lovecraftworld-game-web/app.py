@@ -9,7 +9,17 @@ from langchain.schema import AIMessage, HumanMessage
 import gradio as gr
 
 # Prompt
-prompt_md = os.environ.get("PROMPT_MD")
+prompt_md = os.environ.get("LOVECRAFT_PROMPT_MD")
+
+md_title = """
+    # {title}
+    ## {subtitle}
+    🎵 🎧 Te recomiendo abrir el siguiente [link de audio]({music}&target=_blank) para escuchar mientras juegas.. 
+    """.format(
+        title=os.environ.get("LOVECRAFT_TITLE"),
+        subtitle=os.environ.get("LOVECRAFT_SUBTITLE"),
+        music=os.environ.get("LOVECRAFT_MUSIC")
+    )
 
 with open(prompt_md, encoding="utf-8") as fh:
     extprompt = fh.read()
@@ -83,13 +93,7 @@ with gr.Blocks(
     theme=gr.Theme.from_hub("Taithrah/Minimal"),
 ) as demo:
     # Titulo y desc
-    gr.Markdown(
-        """
-                # Sombras Insondables - Lovecraft LLM
-                ## Aventura de texto oscura y surrealista, utilizando un modelo LLM de texto generativo, basado en la obra y universo de HP Lovecraft.
-                :musical_note: :headphones: Te recomenadmos abrir el siguiente [link de audio](https://www.youtube.com/watch?v=uSqbCnuHI6w&list=PL9u0s1I4XkR1TwWKZe9r3fd4WE8EYeAW9&index=10&target=_blank) para escuchar mientras juegas! 
-                """
-    )
+    gr.Markdown(md_title)
 
     with gr.Accordion("Acciones del juego"):
         with gr.Row():
