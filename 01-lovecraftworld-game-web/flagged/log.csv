@@ -1,6 +1,0 @@
-name,is_morning,temperature,output 0,output 1,flag,username,timestamp
-asdfasdf,True,0,Good morning asdfasdf. It is 0 degrees today,-17.78,,,2023-12-29 16:24:59.516212
-asdfasdf,True,0,Good morning asdfasdf. It is 0 degrees today,-17.78,,,2023-12-29 16:25:02.700341
-asdfasdf,True,0,Good morning asdfasdf. It is 0 degrees today,-17.78,,,2023-12-29 16:25:35.035287
-,False,0,,0,,,2023-12-29 16:25:59.004405
-,False,0,,0,,,2023-12-29 16:26:01.884395
