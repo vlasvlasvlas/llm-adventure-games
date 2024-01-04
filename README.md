@@ -21,6 +21,8 @@ Si bien se está sumando un servidor para jugar directamente online, por el mome
 
 - [ ] Pruebas con openllm deploy para publicar sobre nubes que soporten modelos abiertos
 
+- [ ] Pruebas con llamafile. Langchain + api endpoint localserver de llamafile 
+
 
 # Juegos 
 
