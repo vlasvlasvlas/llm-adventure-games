@@ -30,7 +30,7 @@ dataprompt = """
             - Inicias preguntandole el nombre al jugador y con esa respuesta ya debes usarlo dentro del nombre del personaje tipo protagonista. 
             - Nunca debes responder por el jugador y siempre debes esperar a que el jugador responda para seguir. 
             - El jugador puede decidir qué hacer y debes ayudarlo cuando sea necesario con preguntas multiple choice, pero el jugador tambien puede escribir sin usar ninguna de las opciones y el jugador debe saberlo. 
-            - Respeta el JSON como la biblia del juego, tanto los personajes acertijos localizaciones y reglas de oro del juego.
+            - Respeta el MARKDOEN de contexto como la biblia del juego, tanto los personajes acertijos localizaciones y reglas de oro del juego.
             - El juego debe tener un final claro luego de finaliar todos los acertijos de todas las localizaciones.
             """.format(
     extprompt=extprompt
@@ -49,38 +49,82 @@ history_langchain_format = []
 
 
 # langchain predict function
-def predict(message, history):
-    for human, ai in history:
-        history_langchain_format.append(HumanMessage(content=human))
-        history_langchain_format.append(AIMessage(content=ai))
+def predict(message, history=None):
+    if history is not None:
+        for human, ai in history:
+            history_langchain_format.append(HumanMessage(content=human))
+            history_langchain_format.append(AIMessage(content=ai))
     history_langchain_format.append(HumanMessage(content=message))
 
     custom_prompt = dataprompt
     history_langchain_format.append(HumanMessage(content=custom_prompt))
-
     gpt_response = llm(history_langchain_format)
-    return gpt_response.content
+
+    # Agregar el nuevo mensaje al final del texto existente
+
+    # carga a output historico
+    existing_text = output_hist.value
+
+    # Actualizar el historial del chat
+    output_hist.value = (
+        existing_text
+        + "\n\n\n > **Jugador**: "
+        + message
+        + "\n\n > **Historia**: "
+        + gpt_response.content
+    )
+
+    return output_hist.value
 
 
-# gradio chat gui
-demo = gr.ChatInterface(
-    fn=predict,
+# gradio blocks gui
+with gr.Blocks(
     title="Sombras Insondables - Lovecraft LLM",
-    description="Aventura de texto oscura y surrealista, utilizando un modelo LLM de texto generativo, basado en la obra y universo de HP Lovecraft.",
     theme=gr.Theme.from_hub("Taithrah/Minimal"),
-    textbox=gr.Textbox(placeholder="Escribe aquí tu mensaje", container=False, scale=8),
-    submit_btn="Enviar",
-    stop_btn=None,
-    undo_btn=None,
-    retry_btn=None,
-    clear_btn=None,
-    examples=[
-        "Que empieze el juego!",
-        "Que reinicie el juego!",
-        "Que termine el juego!",
-    ],
-    examples_label="Acciones del juego",
-)
+) as demo:
+    # Titulo y desc
+    gr.Markdown(
+        """
+                # Sombras Insondables - Lovecraft LLM
+                ## Aventura de texto oscura y surrealista, utilizando un modelo LLM de texto generativo, basado en la obra y universo de HP Lovecraft.
+                """
+    )
 
-# gradio launch
-demo.launch(share=True)
+    with gr.Accordion("Acciones del juego"):
+        with gr.Row():
+            # Ejemplos
+            btn1 = gr.Button("Que empieze el juego!", size="sm")
+            btn2 = gr.Button("Que reinicie el juego!", size="sm")
+            btn3 = gr.Button("Que termine el juego!", size="sm")
+
+    # titul acciones del juego
+    gr.Markdown(
+        """
+                Historia:
+                """
+    )
+
+    # texto output hist
+    output_hist = gr.Markdown(show_label=True)
+
+    # texto input
+    textbox = gr.Textbox(
+        placeholder="Escribe aquí tu mensaje", container=False, autofocus=True, scale=8
+    )
+
+    # btn enviar
+    btnSnd = gr.Button("Enviar")
+
+    # acciones
+    btn1.click(fn=lambda: "Que empieze el juego!", outputs=textbox)
+    btn2.click(fn=lambda: "Que reinicie el juego!", outputs=textbox)
+    btn3.click(fn=lambda: "Que termine el juego!", outputs=textbox)
+
+    # enviar onclick
+    btnSnd.click(fn=predict, inputs=textbox, outputs=output_hist)
+    # enviar al presionar enter
+    textbox.submit(fn=predict, inputs=textbox, outputs=output_hist)
+    textbox.submit(lambda x: gr.update(value=""), [], [textbox])
+
+    # launch
+    demo.launch(share=True)

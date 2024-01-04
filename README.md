@@ -2,11 +2,9 @@
 
 <img src="media/image-llm-adventure-games.png" width="500">
 
-El repositorio aloja maquetas disponibles mvp y juegos de aventuras que utilizan modelos LLM como motor de juego, basado en una serie de reglas, personajes, localizaciones y acertijos, dentro de un documento de prompteo.
+El repositorio alberga maquetas de MVP disponibles y juegos de aventuras que emplean modelos de LLM como su motor de juego. Estos juegos están fundamentados en un conjunto de reglas, personajes, ubicaciones y acertijos, todos definidos dentro de un documento de prompteo.
 
-El repositorio contiene por el momento un juego pero el universo de juegos se irá expandiendo a medida de que se generen nuevos prompteos y formas de juego.
-
-Parte del proyecto es probar librerias para el manejo de modelos LLM, ideas de juegos e interfaces visuales.
+Actualmente, el repositorio cuenta con un juego, pero la diversidad de juegos continuará expandiéndose a medida que se generen nuevos prompteos y se experimente con diferentes formas de juego. Este proyecto no solo se centra en la creación de juegos, sino que también forma parte de un proceso de experimentación con estos modelos, con el objetivo de aprender las bibliotecas necesarias para plasmar ideas y juegos a través de esta tecnología. Además, se busca optimizar la utilización de las librerías para el manejo de modelos de LLM, así como explorar nuevas posibilidades para la creación de interfaces visuales en este contexto.
 
 ## Requerimientos
 
