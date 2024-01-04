@@ -71,7 +71,8 @@ demo = gr.ChatInterface(
     undo_btn=None,
     retry_btn=None,
     clear_btn=None,
-    examples=["Que empieze el juego!", "Que reinicie el juego!", "Que termine el juego!"]
+    examples=["Que empieze el juego!", "Que reinicie el juego!", "Que termine el juego!"],
+    examples_label="Acciones del juego"
 )
 
 # gradio launch
