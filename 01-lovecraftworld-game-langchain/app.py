@@ -47,7 +47,6 @@ dataprompt = '''
             - El juego debe tener un final claro luego de finaliar todos los acertijos de todas las localizaciones.
             '''.format(extprompt=extprompt)
 
-
 # LLM
 llm = ChatOpenAI(
     model_name=os.environ.get("LLM_NAME"), 
@@ -74,24 +73,16 @@ prompt = ChatPromptTemplate(
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 conversation = LLMChain(llm=llm, prompt=prompt, verbose=False, memory=memory)
 
-def askconv (preg):
-
+def askconv(preg):
     # Notice that we just pass in the `question` variables - `chat_history` gets populated by memory
     conversation({"question": preg})
-
     convlist = [conversation.memory.chat_memory][0].messages[-1].content
-
     print("\n\n")
     print(convlist)
     print("\n\n")
 
-def obtener_respuesta(input_usuario):
-    askconv(input_usuario)
-
-
 # Inicio de juego
 askconv('Que comienze el juego!')
-
 
 while True:
     input_usuario = input(" -> ")
@@ -101,4 +92,4 @@ while True:
         print("Saliendo del programa.")
         break
 
-    resultado = obtener_respuesta(input_usuario)
+    resultado = askconv(input_usuario)

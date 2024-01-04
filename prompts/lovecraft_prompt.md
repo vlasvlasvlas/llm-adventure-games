@@ -13,6 +13,7 @@
   - Acciones Limitadas: No
   - Prohibidas: 
     - Escapar de la isla
+    - Encontrar objetos que no hayan sido nombrados en la descripción
 - **Avance del Juego:**
   - Iniciar Preguntando Nombre y Cargando Respuesta en Nombre del Personaje Tipo Protagonista: Sí
   - Orden de Localizaciones: Sí
@@ -43,7 +44,7 @@ Tienes que respetar el 100% de todo el presente texto y archivo markdown y enten
       - Descifrado de escrituras arcanas
     - Progresión: Desarrolla habilidades a través de decisiones y exploración
     - Inventario: 
-      - Linterna
+      - Linterna sin bateria
       - Diario
     - Nombre Personalizado: 
 
@@ -136,7 +137,7 @@ Tienes que respetar el 100% de todo el presente texto y archivo markdown y enten
     - Localización ID: 1
     - Descripción: En el puerto, busca la llave del barco.
     - Resolución: Habla con el Marinero Locuaz para obtener pistas y luego revisa las cajas cerca del muelle.
-    - Resolución Objetos: Linterna para encontrar las cajas cerca del muelle.
+    - Resolución Objetos: Tu linterna esta sin bateria, debes encontrar una en el muelle, para poder buscar entre las cajas cerca del muelle.
 
   - **Acertijo 2:**
     - ID: 2
