@@ -105,7 +105,9 @@ with gr.Blocks(
     )
 
     # texto output hist
-    output_hist = gr.Markdown(show_label=True)
+    output_hist = gr.Markdown(
+        show_label=False
+        )
 
     # texto input
     textbox = gr.Textbox(
@@ -122,9 +124,13 @@ with gr.Blocks(
 
     # enviar onclick
     btnSnd.click(fn=predict, inputs=textbox, outputs=output_hist)
+
     # enviar al presionar enter
     textbox.submit(fn=predict, inputs=textbox, outputs=output_hist)
-    textbox.submit(lambda x: gr.update(value=""), [], [textbox])
+
+    # clean input
+    btnSnd.click(lambda x: gr.update(value=''), [],[textbox])
+    textbox.submit(lambda x: gr.update(value=''), [],[textbox])
 
     # launch
     demo.launch(share=True)
