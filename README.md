@@ -1,5 +1,7 @@
 # llm-adventure-games
 
+![Alt text](media/image-llm-adventure-games.png)
+
 El repositorio aloja maquetas disponibles mvp y juegos de aventuras que utilizan modelos LLM como motor de juego, basado en una serie de reglas, personajes, localizaciones y acertijos, dentro de un documento de prompteo.
 
 El repositorio contiene por el momento un juego pero el universo de juegos se irá expandiendo a medida de que se generen nuevos prompteos y formas de juego.
