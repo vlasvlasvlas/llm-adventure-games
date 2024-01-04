@@ -1,6 +1,7 @@
 # Set env var OPENAI_API_KEY or load from a .env file:
 import os, sys
 from dotenv import load_dotenv, find_dotenv
+
 load_dotenv(override=True)
 
 from langchain.chat_models import ChatOpenAI
@@ -10,10 +11,10 @@ import gradio as gr
 # Prompt
 prompt_md = os.environ.get("PROMPT_MD")
 
-with open(prompt_md, encoding='utf-8') as fh:
+with open(prompt_md, encoding="utf-8") as fh:
     extprompt = fh.read()
 
-dataprompt = '''
+dataprompt = """
             Tienes que respetar y entender en su totalidad el siguiente texto, sin poder hacer nada contrario al siguiente contenido MARKDOWN:
 
             CONTEXT START: inicio del markdown --> 
@@ -31,48 +32,54 @@ dataprompt = '''
             - El jugador puede decidir qué hacer y debes ayudarlo cuando sea necesario con preguntas multiple choice, pero el jugador tambien puede escribir sin usar ninguna de las opciones y el jugador debe saberlo. 
             - Respeta el JSON como la biblia del juego, tanto los personajes acertijos localizaciones y reglas de oro del juego.
             - El juego debe tener un final claro luego de finaliar todos los acertijos de todas las localizaciones.
-            '''.format(extprompt=extprompt)
-    
+            """.format(
+    extprompt=extprompt
+)
+
 # OpenAI API Key
 os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
 
 # langchain llm
 llm = ChatOpenAI(
-    model_name=os.environ.get("LLM_NAME"), 
-    temperature=os.environ.get("LLM_TEMPERATURE")
-    )
+    model_name=os.environ.get("LLM_NAME"), temperature=os.environ.get("LLM_TEMPERATURE")
+)
 
 # Initialize history outside of the predict function
 history_langchain_format = []
 
+
 # langchain predict function
 def predict(message, history):
-
     for human, ai in history:
         history_langchain_format.append(HumanMessage(content=human))
         history_langchain_format.append(AIMessage(content=ai))
     history_langchain_format.append(HumanMessage(content=message))
-    
-    custom_prompt = dataprompt 
+
+    custom_prompt = dataprompt
     history_langchain_format.append(HumanMessage(content=custom_prompt))
-    
+
     gpt_response = llm(history_langchain_format)
     return gpt_response.content
+
 
 # gradio chat gui
 demo = gr.ChatInterface(
     fn=predict,
     title="Sombras Insondables - Lovecraft LLM",
     description="Aventura de texto oscura y surrealista, utilizando un modelo LLM de texto generativo, basado en la obra y universo de HP Lovecraft.",
-    theme=gr.Theme.from_hub('Taithrah/Minimal'),
+    theme=gr.Theme.from_hub("Taithrah/Minimal"),
     textbox=gr.Textbox(placeholder="Escribe aquí tu mensaje", container=False, scale=8),
     submit_btn="Enviar",
     stop_btn=None,
     undo_btn=None,
     retry_btn=None,
     clear_btn=None,
-    examples=["Que empieze el juego!", "Que reinicie el juego!", "Que termine el juego!"],
-    examples_label="Acciones del juego"
+    examples=[
+        "Que empieze el juego!",
+        "Que reinicie el juego!",
+        "Que termine el juego!",
+    ],
+    examples_label="Acciones del juego",
 )
 
 # gradio launch

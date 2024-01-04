@@ -1,6 +1,7 @@
 # Set env var OPENAI_API_KEY or load from a .env file:
 import os, sys
 from dotenv import load_dotenv, find_dotenv
+
 load_dotenv(override=True)
 
 from langchain.chains import ConversationChain
@@ -22,12 +23,12 @@ from langchain.prompts import (
 
 prompt_md = os.environ.get("PROMPT_MD")
 
-# lee prompt externo 
-with open(prompt_md, encoding='utf-8') as fh:
+# lee prompt externo
+with open(prompt_md, encoding="utf-8") as fh:
     extprompt = fh.read()
 
-# prompt : 
-dataprompt = '''
+# prompt :
+dataprompt = """
             Tienes que respetar y entender en su totalidad el siguiente texto, sin poder hacer nada contrario al siguiente contenido MARKDOWN:
 
             CONTEXT START: inicio del markdown --> 
@@ -45,25 +46,22 @@ dataprompt = '''
             - El jugador puede decidir qué hacer y debes ayudarlo cuando sea necesario con preguntas multiple choice, pero el jugador tambien puede escribir sin usar ninguna de las opciones y el jugador debe saberlo. 
             - Respeta el JSON como la biblia del juego, tanto los personajes acertijos localizaciones y reglas de oro del juego.
             - El juego debe tener un final claro luego de finaliar todos los acertijos de todas las localizaciones.
-            '''.format(extprompt=extprompt)
+            """.format(
+    extprompt=extprompt
+)
 
 # LLM
 llm = ChatOpenAI(
-    model_name=os.environ.get("LLM_NAME"), 
-    temperature=os.environ.get("LLM_TEMPERATURE")
-    )
+    model_name=os.environ.get("LLM_NAME"), temperature=os.environ.get("LLM_TEMPERATURE")
+)
 
 # Prompt
 prompt = ChatPromptTemplate(
-    
     # custom system message
     messages=[
-
         SystemMessagePromptTemplate.from_template(dataprompt),
-
         # The `variable_name` here is what must align with memory
         MessagesPlaceholder(variable_name="chat_history"),
-
         HumanMessagePromptTemplate.from_template("{question}"),
     ]
 )
@@ -73,6 +71,7 @@ prompt = ChatPromptTemplate(
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 conversation = LLMChain(llm=llm, prompt=prompt, verbose=False, memory=memory)
 
+
 def askconv(preg):
     # Notice that we just pass in the `question` variables - `chat_history` gets populated by memory
     conversation({"question": preg})
@@ -81,14 +80,15 @@ def askconv(preg):
     print(convlist)
     print("\n\n")
 
+
 # Inicio de juego
-askconv('Que comienze el juego!')
+askconv("Que comienze el juego!")
 
 while True:
     input_usuario = input(" -> ")
 
     # Verificar si el usuario quiere salir
-    if input_usuario.lower() == 'finjuego':
+    if input_usuario.lower() == "finjuego":
         print("Saliendo del programa.")
         break
 

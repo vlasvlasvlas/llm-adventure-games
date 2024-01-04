@@ -8,3 +8,4 @@ langchain
 
 # pip install --no-cache-dir --verbose gradio==3.38.0
 # pip install --no-cache-dir --verbose openai==0.27.0
+python-dotenv
