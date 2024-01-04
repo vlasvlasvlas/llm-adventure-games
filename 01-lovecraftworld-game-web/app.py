@@ -5,18 +5,14 @@ load_dotenv(override=True)
 
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import AIMessage, HumanMessage
-import openai
 import gradio as gr
 
 # Prompt
 prompt_md = os.environ.get("PROMPT_MD")
-print(prompt_md)
 
-# lee prompt externo 
 with open(prompt_md, encoding='utf-8') as fh:
     extprompt = fh.read()
 
-# prompt:
 dataprompt = '''
             Tienes que respetar y entender en su totalidad el siguiente texto, sin poder hacer nada contrario al siguiente contenido MARKDOWN:
 
@@ -37,10 +33,10 @@ dataprompt = '''
             - El juego debe tener un final claro luego de finaliar todos los acertijos de todas las localizaciones.
             '''.format(extprompt=extprompt)
     
-
+# OpenAI API Key
 os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
 
-# LLM
+# langchain llm
 llm = ChatOpenAI(
     model_name=os.environ.get("LLM_NAME"), 
     temperature=os.environ.get("LLM_TEMPERATURE")
@@ -49,6 +45,7 @@ llm = ChatOpenAI(
 # Initialize history outside of the predict function
 history_langchain_format = []
 
+# langchain predict function
 def predict(message, history):
 
     for human, ai in history:
@@ -62,6 +59,7 @@ def predict(message, history):
     gpt_response = llm(history_langchain_format)
     return gpt_response.content
 
+# gradio chat gui
 demo = gr.ChatInterface(
     fn=predict,
     title="Sombras Insondables - Lovecraft LLM",
@@ -76,4 +74,5 @@ demo = gr.ChatInterface(
     examples=["Que empieze el juego!", "Que reinicie el juego!", "Que termine el juego!"]
 )
 
+# gradio launch
 demo.launch(share=True)
