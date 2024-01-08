@@ -138,4 +138,7 @@ with gr.Blocks(
     textbox.submit(lambda x: gr.update(value=''), [],[textbox])
 
     # launch
-    demo.launch(share=True)
+    demo.launch(
+        share=True,
+        #auth=("chirim", "bolito")
+        )
