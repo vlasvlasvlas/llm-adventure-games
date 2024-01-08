@@ -140,5 +140,5 @@ with gr.Blocks(
     # launch
     demo.launch(
         share=True,
-        #auth=("chirim", "bolito")
+        auth=("chirim", "bolito") # remove this line to disable authentication
         )
