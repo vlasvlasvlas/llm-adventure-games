@@ -16,10 +16,10 @@ md_title = """
     ## {subtitle}
     🎵 🎧 Te recomiendo abrir el siguiente [link de audio]({music}&target=_blank) para escuchar mientras juegas.. 
     """.format(
-        title=os.environ.get("LOVECRAFT_TITLE"),
-        subtitle=os.environ.get("LOVECRAFT_SUBTITLE"),
-        music=os.environ.get("LOVECRAFT_MUSIC")
-    )
+    title=os.environ.get("LOVECRAFT_TITLE"),
+    subtitle=os.environ.get("LOVECRAFT_SUBTITLE"),
+    music=os.environ.get("LOVECRAFT_MUSIC"),
+)
 
 with open(prompt_md, encoding="utf-8") as fh:
     extprompt = fh.read()
@@ -90,7 +90,7 @@ def predict(message, history=None):
 
 # gradio blocks gui
 with gr.Blocks(
-    title="Sombras Insondables - Lovecraft LLM",
+    title=os.environ.get("LOVECRAFT_TITLE"),
     theme=gr.Theme.from_hub("Taithrah/Minimal"),
 ) as demo:
     # Titulo y desc
@@ -111,9 +111,7 @@ with gr.Blocks(
     )
 
     # texto output hist
-    output_hist = gr.Markdown(
-        show_label=False
-        )
+    output_hist = gr.Markdown(show_label=False)
 
     # texto input
     textbox = gr.Textbox(
@@ -135,11 +133,11 @@ with gr.Blocks(
     textbox.submit(fn=predict, inputs=textbox, outputs=output_hist)
 
     # clean input
-    btnSnd.click(lambda x: gr.update(value=''), [],[textbox])
-    textbox.submit(lambda x: gr.update(value=''), [],[textbox])
+    btnSnd.click(lambda x: gr.update(value=""), [], [textbox])
+    textbox.submit(lambda x: gr.update(value=""), [], [textbox])
 
     # launch
     demo.launch(
         share=True,
-        auth=("chirim", "bolito") # remove this line to disable authentication
-        )
+        auth=("chirim", "bolito"),  # remove this line to disable authentication
+    )
