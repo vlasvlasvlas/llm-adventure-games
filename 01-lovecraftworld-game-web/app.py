@@ -64,9 +64,11 @@ def predict(message, history=None):
     history_langchain_format.append(AIMessage(content=history))
     history_langchain_format.append(HumanMessage(content=message))
 
-    print("history_langchain_format: ", history_langchain_format)
-
     gpt_response = llm(history_langchain_format)
+
+    #print("history_langchain_format: ", history_langchain_format)
+    print("human message: ", message)
+    print("gpt_response.content: ", gpt_response.content)
 
     # carga a output historico
     existing_text = output_hist.value
